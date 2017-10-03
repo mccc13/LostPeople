@@ -1,5 +1,7 @@
 package com.distribuidos.lostpeople;
 
+import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,7 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,RegistrarFragment.OnFragmentInteractionListener,PublicarFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,13 +81,17 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        Fragment fragment = null;
+        boolean FramentTransaction = false;
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            fragment = new PublicarFragment();
+            FramentTransaction = true;
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
-
+            fragment = new RegistrarFragment();
+            FramentTransaction = true;
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -93,9 +99,18 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
-
+        if (FramentTransaction) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
+            item.setChecked(true);
+            getSupportActionBar().setTitle(item.getTitle());
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
