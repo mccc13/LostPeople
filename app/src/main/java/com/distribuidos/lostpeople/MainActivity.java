@@ -15,9 +15,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,RegistrarFragment.OnFragmentInteractionListener,PublicarFragment.OnFragmentInteractionListener {
+import java.util.TimerTask;
 
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener,RegistrarFragment.OnFragmentInteractionListener,PublicarFragment.OnFragmentInteractionListener,SplashScreenFragment.OnFragmentInteractionListener {
+private  static final long SPLASH_SCREEN_DELAY=300;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +31,13 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                  //      .setAction("Action", null).show();
+                Fragment fragment = new PublicarFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
+
+                getSupportActionBar().setTitle("Nueva Publicacion");
+
             }
         });
 
